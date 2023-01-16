@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <title>Title</title>
+</head>
+<body>
+    <div class="alerbuttons">
+        <h1>Your Favourite Movies</h1>
+        <div class="base-info"></div>
+        <p>
+            <a onclick="window.location.href='Create.html'">Add Film </a>
+            <a onclick="window.location.href='Home.html'">All Films </a>
+        </p>
+        <script>
+            var html = "";
+            html +=  "<p>Frontend version:"+localStorage["version"]+"</p>";
+            document.getElementsByClassName("base-info")[0].innerHTML = html;
+
+            window.fetch(localStorage["url_path"] + '/info')
+                .then(response => response.json())
+                .then( data => {
+                    const appVersion = data.version;
+                    const replica = data.replica;
+                    console.log(appVersion);
+                    var html = "";
+                    html +=  "<p>Backend version:"+appVersion+"</p>";
+                    html +=  "<p>Replica:"+replica+"</p>";
+                    document.getElementsByClassName("base-info")[0].innerHTML += html;
+                });
+        </script>
+    </div>
+    <script>
+        const handleClick = () => {
+            console.log(localStorage["id"])
+            fetch(localStorage["url_path"] + '/movie/' + localStorage["id"], {
+                method: 'DELETE'
+            }).then(() => {
+                window.location.href='Home.html';
+            })
+        }
+    </script>
+    <div class="movie-details"></div>
+    <script>
+        console.log(localStorage["id"]);
+        console.log("aaaaa");
+        window.fetch(localStorage["url_path"] + "/movie/" + localStorage["id"], { method: 'GET' })
+            .then( response => response.json())
+            .then(r => {
+                const item = r.Item;
+                var html="";
+                html+="<article>";
+                html+="<h2>"+item.title+"</h2>";
+                html+="<p>Director: "+item.director+"</p>";
+                html+="<button onclick=\"handleClick();\">delete movie</button>";
+                html+="</article>";
+                document.getElementsByClassName("movie-details")[0].innerHTML = html;
+            });
+    </script>
+</body>
+</html>

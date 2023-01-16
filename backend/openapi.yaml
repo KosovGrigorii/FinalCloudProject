@@ -1,0 +1,152 @@
+openapi: "3.0.0"
+info:
+  title: Movies API
+  version: 0.1.0
+
+x-yc-apigateway:
+  service_account_id: ${MOVIES_API_SA_ID}
+
+paths:
+  /{file+}:
+    options:
+      parameters:
+        - name: file
+          in: path
+          description: greedy param
+          required: false
+          schema:
+            type: string
+      description: Greedy options
+      operationId: greedyOptions
+      x-yc-apigateway-integration:
+        type: dummy
+        http_code: 200
+        content:
+          "*": ""
+        http_headers:
+          Allow: OPTIONS, GET, HEAD, POST, DELETE, PUT
+          Access-Control-Allow-Origin: '*'
+          Access-Control-Allow-Headers: Content-Type, Authorization
+  "/info":
+    get:
+      summary: server version
+      operationId: serverVersion
+      responses:
+        '200':
+          description: successful response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Info"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${MOVIES_API_CONTAINER_ID}
+  "/movies":
+    get:
+      summary: Returns all movies
+      operationId: getMovies
+      responses:
+        '200':
+          description: successful response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/MovieList"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${MOVIES_API_CONTAINER_ID}
+  "/movie/{id}":
+    parameters:
+      - name: id
+        in: path
+        description: ID of movie to get
+        required: true
+        schema:
+          type: integer
+    get:
+      description: Returns movie based on the ID supplied
+      operationId: getMovieById
+      responses:
+        '200':
+          description: movie response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Movie'
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${MOVIES_API_CONTAINER_ID}
+    delete:
+      description: deletes a single movie based on the ID supplied
+      operationId: deleteMovieById
+      responses:
+        '200':
+          description: movie deleted
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${MOVIES_API_CONTAINER_ID}
+  "/movie":
+    post:
+      summary: Post movie
+      operationId: postMovie
+      requestBody:
+        description: Movie to post
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/Movie"
+        required: true
+      responses:
+        '200':
+          description: successful response
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/Movie"
+      x-yc-apigateway-integration:
+        type: serverless_containers
+        container_id: ${MOVIES_API_CONTAINER_ID}
+components:
+  schemas:
+    Movie:
+      type: object
+      required:
+        - title
+        - director
+      properties:
+        title:
+          type: string
+        director:
+          type: string
+    MovieList:
+      required:
+      - Items
+      type: object
+      properties:
+        Items:
+          type: array
+          items:
+            "$ref": "#/components/schemas/OutMovie"
+    OutMovie:
+      type: object
+      required:
+        - id
+        - title
+        - director
+      properties:
+        title:
+          type: string
+        id:
+          type: string
+        director:
+          type: string
+    Info:
+      required:
+      - version
+      - replica
+      type: object
+      properties:
+        version:
+          type: string
+        replica:
+          type: string

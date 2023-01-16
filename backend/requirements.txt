@@ -1,0 +1,4 @@
+boto3==1.26.50
+Flask==1.1.2
+flask_cors==3.0.10
+waitress==2.1.2

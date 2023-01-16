@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <title>Title</title>
+    <script>
+        const uid = function(){
+            return Date.now().toString(36) + Math.random().toString(36).substr(2);
+        }
+        function addMovie(e) {
+            const id = uid();
+            console.log(typeof id);
+            const title = e.title.value;
+            const director = e.director.value;
+            const movie = { title, director, id };
+            console.log(JSON.stringify(movie));
+            fetch(localStorage["url_path"] + '/movie', {
+                method: 'POST',
+                headers: { "Content-type": "application/json" },
+                body: JSON.stringify(movie)
+            }).then(() => {
+                console.log("new movie added")
+                window.location.href='Home.html';
+            });
+        }
+    </script>
+</head>
+<body>
+    <div class="movie-list"></div>
+    <div class="create">
+        <h2>Add a New Movie</h2>
+        <form onsubmit="addMovie(this);" id="mememe">
+            <label>
+                Movie Title:
+                <input name="title" type="text" required="required">
+            </label>
+            <label>
+                Movie Director:
+                <input name="director" type="text" required="required">
+            </label>
+            <button>Add Movie</button>
+        </form>
+    </div>
+    <script>
+        var form = document.getElementById("mememe");
+        function handleForm(event) { event.preventDefault(); }
+        form.addEventListener('submit', handleForm);
+    </script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+/* base styles */
+* {
+    margin: 0;
+    font-family: 'Courier New', monospace;;
+    color: #333;
+}
+.alerbuttons {
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 auto;
+    background-color: black;
+    color: black;
+    border-bottom: 1px solid #f2f2f2;
+}
+.alerbuttons p {
+    padding: 6px;
+    font-size : 20px;
+    color:gray;
+}
+
+.alerbuttons h1 {
+    color: white;
+    font-size : 60px;
+}
+.alerbuttons a {
+    padding: 6px;
+    font-size : 20px;
+    color:gray;
+    text-decoration: none;
+}
+.alerbuttons a:hover{
+    color: rgb(238, 237, 237);
+}
+
+.movie-content {
+    padding: 0px 20px 0px 20px;
+}
+
+.movie-preview {
+    border-bottom: 1px solid #f2f2f2;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.movie-preview:hover {
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.1);
+}
+
+.movie-preview a{
+    text-decoration: none;
+}
+
+.movie-details {
+    padding: 30px;
+}
+
+.movie-details h2 {
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+.movie-details div {
+    margin: 20px 0;
+}
+.movie-details p {
+    margin: 20px 0;
+}
+
+.movie-details button {
+    background: black;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.create {
+    max-width: 400px;
+    padding-top: 20px;
+    margin: 0 auto;
+    text-align: center;
+}
+.create label {
+    text-align: left;
+    display: block;
+    font-size: 20px;
+}
+.create h2 {
+    font-size: 40px;
+    color: black;
+    margin-bottom: 30px;
+}
+.create input {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+    display: block;
+}
+.create button {
+    background: black;
+    color: #fff;
+    border: 0;
+    padding: 8px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 20px;
+}
