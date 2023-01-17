@@ -153,3 +153,17 @@ cython_debug/
 
 *.DS_Store
 ._*
+
+# Local terraform directories
+**/.terraform/*
+*/.terraform.*
+
+# State files
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+*.log
+
+# Sensitive data
+*.tfvars
